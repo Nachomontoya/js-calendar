@@ -14,11 +14,11 @@ function modalForDetails(title, initialDate, endDate, reminderDate, eventDescrip
     modDetailsContent.style.visiblity="visible";
 
     let titleOfEventTxt = modDetailsContent.appendChild(document.createElement("h1"));
-    titleOfEventTxt.classList.add('title-event')
+    titleOfEventTxt.classList.add('title-event');
     titleOfEventTxt.innerHTML = title;
 
     let detailsDiv = modDetailsContent.appendChild(document.createElement("div"));
-    detailsDiv.classList.add('details-container')
+    detailsDiv.classList.add('details-container');
 
     let div1 = detailsDiv.appendChild(document.createElement("div"));
     let labelInit = div1.appendChild(document.createElement('h4'));
@@ -67,21 +67,76 @@ function modalForDetails(title, initialDate, endDate, reminderDate, eventDescrip
     }
 
     let div6 = detailsDiv.appendChild(document.createElement("div"));
-    div6.classList.add('div-for-btns')
+    div6.classList.add('div-for-btns');
     let rmvBtn = div6.appendChild(document.createElement("button"));
-    rmvBtn.classList.add('remove-btn')
+    rmvBtn.classList.add('remove-btn');
     let okBtn = div6.appendChild(document.createElement("button"));
-    okBtn.classList.add('ok-btn')
-    rmvBtn.innerHTML = 'Delete event'
+    okBtn.classList.add('ok-btn');
+    rmvBtn.innerHTML = 'Delete event';
     rmvBtn.onclick = function() {
-        removeEvent(id)
-        removeCustomAlert()
+        removeEvent(id);
+        removeCustomAlert();
     }
-    okBtn.innerHTML = 'Ok'
+    okBtn.innerHTML = 'Ok';
     okBtn.onclick = function() {
-        removeCustomAlert()
+        removeCustomAlert();
     }
 }
+
+
+function modalForReminders(title, initialDate, id) {
+    if(document.getElementById("alert-container")) return;
+
+    let mainContentForBlur = document.querySelector('#main-content-section');
+    let currentDateForBlur = document.querySelector('.currentDate-section');
+    mainContentForBlur.style.filter = 'blur(5px)';
+    currentDateForBlur.style.filter = 'blur(5px)';
+
+    let alertContainer = document.getElementsByTagName('body')[0].appendChild(document.createElement('div'));
+    alertContainer.id = "alert-container";
+
+    let modDetailsContent = alertContainer.appendChild(document.createElement('div'));
+    modDetailsContent.id = "details-reminder-content";
+    modDetailsContent.style.visiblity="visible";
+
+    let reminderHeader = modDetailsContent.appendChild(document.createElement("h1"));
+    reminderHeader.classList.add('reminder-header');
+    reminderHeader.innerHTML = 'Hey! remember:';
+  
+    let detailsDiv = modDetailsContent.appendChild(document.createElement("div"));
+    detailsDiv.classList.add('details-reminder-container');
+
+    let titleOfEventTxt = detailsDiv.appendChild(document.createElement("h1"));
+    titleOfEventTxt.classList.add('title-event');
+    titleOfEventTxt.innerHTML = title;
+    
+    let div1 = detailsDiv.appendChild(document.createElement("div"));
+    let labelInit = div1.appendChild(document.createElement('h4'));
+    labelInit.classList.add('label-for-details');
+    labelInit.innerText = 'Starts:';
+    let initDateTxt = div1.appendChild(document.createElement('h3'));
+    initDateTxt.classList.add('detailed-event');
+    initDateTxt.textContent = initialDate;
+
+    let div6 = detailsDiv.appendChild(document.createElement("div"));
+    div6.classList.add('div-for-reminder-btn');
+    let rmvBtn = div6.appendChild(document.createElement("button"));
+    rmvBtn.classList.add('remove-btn');
+    rmvBtn.innerHTML = 'Delete reminder';
+    rmvBtn.onclick = function() {
+        console.log(id);
+        // removeCustomAlert();
+    }
+    let okBtn = div6.appendChild(document.createElement("button"));
+    okBtn.classList.add('ok-reminder-btn');
+    okBtn.innerHTML = 'Got it!';
+    okBtn.onclick = function() {
+        removeCustomAlert();
+    }
+}
+
+// modalForReminders('title', '2024-04-24 16:45', 12312312312)
+
 
 function removeCustomAlert() {
     document.getElementsByTagName("body")[0].removeChild(document.getElementById("alert-container"));
